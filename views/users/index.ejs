@@ -1,0 +1,17 @@
+<h2>Users</h2>
+<a href="/users/new">Sign up</a>
+<ul>
+<% var i = 0; for(i; i < users.length;i++) { %>
+<li>
+  <h4><%= users[i].name %></h4>
+  <h5>£<%= users[i].email %></h5>
+ 
+  <h5><%= users[i].address %></h5>
+  <a href="/users/<%= users[i].id %>/edit" class="button">Edit</a>
+  <form action="/users/<%= users[i].id %>" method="post">
+  <input type="hidden" name="_method" value="delete">
+  <input type="submit" value="Delete" class="button">
+  </form>
+</li>
+<% } %>
+</ul>

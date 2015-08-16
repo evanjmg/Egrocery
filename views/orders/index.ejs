@@ -1,0 +1,23 @@
+
+<div class="row">
+<% if (orders == "") { %>
+You have no orders.
+<% } %>
+  <ul>
+  <% var i = 0, j = 0; for(i; i < orders.length;i++) { %>
+     <li>
+     <h4>Ordered on <%= (orders[i].created_at).toDateString() %></h4>
+     <div class="row">
+     <ul>
+      <% for(j; j < orders[i].products.length;j++) { %>
+             <li class="products">
+               <h4><%= orders[i].products[j].name %></h4>  
+                 <img src="<%= orders[i].products[j].image %>" alt="">
+               <h5>£<%= (parseFloat(orders[i].products[j].price)).toFixed(2) %></h5>
+             </li>
+             <% } %>
+          </ul>
+        </div>
+  <%  } %>
+  </ul>
+</div>

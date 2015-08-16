@@ -1,0 +1,25 @@
+
+//  npm install node-sass-middleware --save
+// require it
+sassMiddleware = require('node-sass-middleware');
+
+// set your scss folder - mines in the main directory
+
+var srcPath = './sass';
+// set where you'd like write your scss - where your scss files are
+
+var destPath = './public/styles';
+// set where you'd like the scss to be compiled to css - of course in public folder
+
+app.use('/styles', sassMiddleware({
+  src: srcPath,
+  dest: destPath,
+  debug: true,
+  outputStyle: 'expanded'
+}));
+//  in html make sure to add your compiled css file name like this
+//   <link rel="stylesheet" href="/styles/style.css"> this is the compiled version of my style.scss in my scss folder.
+
+// for another example go here - https://github.com/andrew/node-sass-example
+//  or see the npm's docs -https://github.com/sass/node-sass-middleware
+

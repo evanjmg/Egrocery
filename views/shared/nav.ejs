@@ -1,0 +1,41 @@
+<div class="fixed">
+<nav class="top-bar" data-topbar role="navigation">
+  <ul class="title-area">
+    <li class="name">
+    <h1><a href="/products"><img src="/images/egrocery-logo.jpg" width="40" style="margin-right:5px;" alt=""><span style="color:#4ae">e</span>Grocery</a></h1>
+    </li>
+     <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
+    <li class="toggle-topbar"><a href="#"><span> <% if (products != undefined) { %><span class="cart-total "><%= products.length %></span> <% } %>MENU</span></a></li>
+  </ul>
+
+  <section class="top-bar-section">
+    <!-- Right Nav Section -->
+    <ul class="right">
+    <li><a href="/products"> My Cart <% if (products != undefined) { %><span class="cart-total "><%= products.length %></span> <% } %></a></li>
+      <li class="has-form">
+        <div class="row collapse"><form action="/search/" method="post">
+          <div class="large-8 small-7 columns">
+
+            <input type="text" name="query" placeholder="Find Food">
+          </div>
+          <div class="large-4 small-5 columns">
+            <input type="submit" class="alert button expand animated pulse" value="Search">
+          </div>
+          </form>
+        </div>
+      </li>
+      <li class="has-dropdown">
+        <a href="#">My Account</a>
+        <ul class="dropdown">
+          <li class="active"><a href="#" >Logout</a></li>
+          <li class="active"><a href="/orders">My Orders</a></li>
+        </ul>
+      </li>
+    </ul>
+    <!-- Left Nav Section -->
+    <ul class="left">
+      <li><a href="/search/">Home</a></li>
+    </ul>
+  </section>
+</nav>
+  </div>

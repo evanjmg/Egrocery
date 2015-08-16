@@ -1,0 +1,33 @@
+<div class="row text-centered animated fadeIn">
+  <div class="row">
+    <img src="/images/egrocery-cover-image.png"  alt="" width="100%" >
+    <div style="height:5px;border:5px solid #4ae ; background-color:#4ae;margin-top:20px;margin-bottom:20px;" /></div>
+    <div class="row"><form action="/search/" method="post">
+      <div class="large-8 small-7 columns">
+
+        <input type="text" name="query" placeholder="Find Food">
+      </div>
+      <div class="large-4 small-5 columns">
+        <input type="submit" class="alert button expand animated pulse" value="Search">
+      </div>
+    </form>
+  </div>
+</div>
+<div class="row">
+  <h2>Recent Items</h2>
+</div>
+<div class="row">
+  <ul>
+  <% var i = 0, j = 0; for(i; i < orders.length;i++) { 
+      for(j; j < orders[i].products.length;j++) { %>
+             <li class="products">
+               <h4><%= orders[i].products[j].name %></h4>  
+                 <img src="<%= orders[i].products[j].image %>" alt="">
+               <h5>£<%= (parseFloat(orders[i].products[j].price)).toFixed(2) %></h5>
+             </li>
+  <% } } %>
+  </ul>
+</div>
+</div>
+
+ 

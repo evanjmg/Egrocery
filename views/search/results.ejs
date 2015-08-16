@@ -1,0 +1,23 @@
+<div class="results-container text-centered">
+<h4>
+<% if (message) {  %>
+<%= message %>
+<% } %>
+</h4>
+<% var i=0; for(i;i< tescoproducts.length;i++) { %>
+<li class="products">
+  <h4><%= tescoproducts[i].Name %></h4>
+  <img src="<%= tescoproducts[i].ImagePath %>" alt="">
+  <p>
+    <%= tescoproducts[i].PriceDescription %>
+    <br/>
+  </p>
+  <form action="/products/addtocart" method="post">
+    <input type="hidden" name="name" value="<%= tescoproducts[i].Name %>">
+    <input type="hidden" name="price" value="<%= tescoproducts[i].Price %>">
+    <input type="hidden" name="image" value="<%= tescoproducts[i].ImagePath %>">
+    <input  type="submit" value="Add To Cart" class="button animated pulse">
+  </form>
+</li>
+<% } %>
+</div>
