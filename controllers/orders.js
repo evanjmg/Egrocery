@@ -67,7 +67,7 @@ router.post('', function (req, res) {
           console.log('card declined');
           req.session.sessionFlash = {
             type: 'declined',
-            message: err.message
+            message: "We aren't taking payments currently"
           }
           res.redirect('/orders/payment');
           err.message; // => e.g. "Your card's expiration year is invalid."
@@ -75,21 +75,21 @@ router.post('', function (req, res) {
           case 'StripeInvalidRequest':
           req.session.sessionFlash = {
             type: 'declined',
-            message: err.message
+            message: "We aren't taking payments currently"
           }
           res.redirect('/orders/payment');// Invalid parameters were supplied to Stripe's API
           break;
           case 'StripeAPIError':
            req.session.sessionFlash = {
                      type: 'declined',
-                     message: err.message
+                     message:  "We aren't taking payments currently"
                    }
           res.redirect('/orders/payment');// An error occurred internally with Stripe's API
           break;
           case 'StripeConnectionError':
           req.session.sessionFlash = {
                     type: 'declined',
-                    message: err.message
+                    message:  "We aren't taking payments currently"
                   }
                   res.redirect('/orders/payment');// Some kind of error occurred during the HTTPS communication
           break;
