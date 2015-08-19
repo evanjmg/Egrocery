@@ -1,6 +1,5 @@
 var express = require('express'), 
 router = express.Router();
-
 var Order = require('../models/order');
 var Product = require('../models/product');
 var User = require('../models/user');
@@ -27,9 +26,7 @@ router.get('/', function(req,res) {
 router.get('/:query', function (req,res) {
   TescoProductSearch(req.params.query, function (response) {
     var TescoResponse = JSON.parse(response);
-    Product.find(function (err, products) {  
-      res.render('./search/results', { tescoproducts: TescoResponse.Products, products: products, message: res.locals.sessionFlash }) });
-  });
+      res.render('./search/results', { tescoproducts: TescoResponse.Products, message: res.locals.sessionFlash }) });
 });
 
 // search bar

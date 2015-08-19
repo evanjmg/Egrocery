@@ -17,13 +17,11 @@ TOTAL: £ <%= total.toFixed(2) %>
 </div>
 </div>
   <ul>
-  <% var i = 0; for(i; i < products.length;i++) { %>
-  <li class="products">
-    <h4><%= products[i].name %></h4>
-    <h5>£<%= (parseFloat(products[i].price)).toFixed(2) %></h5>
-    <img src="<%= products[i].image %>" alt="">
-    <h5><%= products[i].description %></h5>
-
+  <% var i = 0; for(i; i < current_user.products.length;i++) { %>
+  <li class="products" style="margin-top:35px;">
+    <h4><%= current_user.products[i].name %></h4>
+    <h5>£<%= (parseFloat(current_user.products[i].price)).toFixed(2) %></h5>
+    <img src="<%= current_user.products[i].image %>" alt="">
   </li>
   <% } %>
   </ul>
@@ -32,6 +30,7 @@ TOTAL: £ <%= total.toFixed(2) %>
 <div class="small-12 medium-5 large-5 columns">
   <br/>
 <h3>Make a Payment</h3>
+  <i> Note: This is a fake site, you cannot buy groceries, please visit <a href="http://tesco.com" target="_blank">TESCO</a>.</i>
 <form action="/orders" method="POST" id="payment-form">
   <span class="payment-errors"></span>
 

@@ -1,0 +1,17 @@
+<h2>Login</h2>
+<% if (message.length > 0) { %>
+  <div class="alert alert-danger"><%= message %></div>
+<% } %>
+
+<form action="/users/login" method="post">
+  <label for="email">Email: </label>
+  <input type="text" name="email">
+  <label for="password">Password: </label>
+  <input type="password" name="password">
+  <input type="submit" value="Login" class="button">
+</form>
+<a href="/users/auth/google"class="button btn-social btn-google" >
+<i class="fa fa-google"></i> Login with Gmail
+</a>
+<br/>
+<a href="/users/signup">Need an Account? Sign up here</a>

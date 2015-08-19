@@ -6,7 +6,7 @@ You have no orders.
   <ul>
   <% var i = 0, j = 0; for(i; i < orders.length;i++) { %>
      <li>
-     <h4>Ordered on <%= (orders[i].created_at).toDateString() %></h4>
+     <h4>Ordered on <%= (orders[i].created_at).toDateString() %> - <%= orders[i].total %></h4>
      <div class="row">
      <ul>
       <% for(j; j < orders[i].products.length;j++) { %>

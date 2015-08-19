@@ -1,9 +1,13 @@
 <div class="results-container text-centered">
-<h4>
+<h4 class="message">
 <% if (message) {  %>
 <%= message %>
 <% } %>
+<% if (!current_user) { %>
+Please Sign in to buy groceries
+<% } %>
 </h4>
+
 <% var i=0; for(i;i< tescoproducts.length;i++) { %>
 <li class="products">
   <h4><%= tescoproducts[i].Name %></h4>
@@ -12,12 +16,14 @@
     <%= tescoproducts[i].PriceDescription %>
     <br/>
   </p>
-  <form action="/products/addtocart" method="post">
-    <input type="hidden" name="name" value="<%= tescoproducts[i].Name %>">
-    <input type="hidden" name="price" value="<%= tescoproducts[i].Price %>">
-    <input type="hidden" name="image" value="<%= tescoproducts[i].ImagePath %>">
-    <input  type="submit" value="Add To Cart" class="button animated pulse">
+  <% if (current_user) { %>
+  <form action="/products/addtocart" method="post" class="form-cart">
+    <input type="hidden" class="name" name="name" value="<%= tescoproducts[i].Name %>">
+    <input type="hidden" class="price" name="price" value="<%= tescoproducts[i].Price %>">
+    <input type="hidden" class="image" name="image" value="<%= tescoproducts[i].ImagePath %>">
+    <input  type="submit" value="Add To Cart" class="button animated pulse addtocart">
   </form>
+  <% } %>
 </li>
 <% } %>
 </div>

@@ -3,43 +3,32 @@ router = express.Router();
 stripe = require("stripe")(
   process.env.STRIPE_API_TEST_SECRET_KEY
   );
-
+authenticatedUser = function (req,res,next) {
+      if (req.isAuthenticated()) return next();
+      res.redirect('/users/login');
+    }
 
 var Order = require('../models/order');
 var Product = require('../models/product');
 var User = require('../models/user');
-
-router.get('/', function (req, res) {
-  Product.find(function (err, products) {
+// GET - ALL ORDERS
+router.get('/',authenticatedUser, function (req, res) {
     Order.find(function (err, orders) {
-      res.render('./orders/index', { orders: orders, products: products})
-    })
+      res.render('./orders/index', { orders: orders})
   });
 })
-
-router.get('/payment',function (req,res) {
-  Product.find(function (err,products) {
-    var i=0,j=0,total=0;
-    for(i;i < products.length;i++) {
-      total += parseFloat(products[i].price);
-    }
-    console.log(products);
-    o = new Order({ total: total.toFixed(2)});
-    for(j;j < products.length;j++) {
-      o.products.push(products[j]) }
-      console.log(o);
-      o.save(function(err){ 
-        if(err) console.log(err);
-        console.log('sucessfully saved');
-      })
-
-      res.render('./orders/payment', { products: products, total: total, message:  res.locals.sessionFlash });
-
-
+// GET PAYMENT PAGE
+router.get('/payment', authenticatedUser,function (req,res) {
+       var i=0,j=0,total=0;
+       for(i;i < current_user.products.length;i++) {
+         total += parseFloat(current_user.products[i].price);
+       }
+      res.render('./orders/payment', { total: total, message:  req.flash('payment-error') });
    // });
-});
+
 })
-router.post('', function (req, res) {
+// POST - CREATE ORDER - WHEN SUBMIT PAGEMENT
+router.post('', authenticatedUser, function (req, res) {
 
   Order.findOne({}, {}, { sort: { 'created_at' : -1 } }, function(err, order) {
     if(err) console.log(err)
@@ -65,72 +54,57 @@ router.post('', function (req, res) {
         case 'StripeCardError':
           // A declined card error
           console.log('card declined');
-          req.session.sessionFlash = {
-            type: 'declined',
-            message: "We aren't taking payments currently"
-          }
+       req.flash( 'payment-error', err.message)
           res.redirect('/orders/payment');
           err.message; // => e.g. "Your card's expiration year is invalid."
           break;
           case 'StripeInvalidRequest':
-          req.session.sessionFlash = {
-            type: 'declined',
-            message: "We aren't taking payments currently"
-          }
+         req.flash( 'payment-error', err.message)
           res.redirect('/orders/payment');// Invalid parameters were supplied to Stripe's API
           break;
           case 'StripeAPIError':
-           req.session.sessionFlash = {
-                     type: 'declined',
-                     message:  "We aren't taking payments currently"
-                   }
+         req.flash( 'payment-error', err.message)
           res.redirect('/orders/payment');// An error occurred internally with Stripe's API
           break;
           case 'StripeConnectionError':
-          req.session.sessionFlash = {
-                    type: 'declined',
-                    message:  "We aren't taking payments currently"
-                  }
+          req.flash( 'payment-error', err.message)
                   res.redirect('/orders/payment');// Some kind of error occurred during the HTTPS communication
           break;
           case 'StripeAuthenticationError':
          console.log(err); // You probably used an incorrect API key
         } 
         else {
-        console.log(charge);
-        console.log('*********************');
+
+          var i=0,j=0,total=0;
+          for(i;i < current_user.products.length;i++) {
+            total += parseFloat(current_user.products[i].price);
+          }
+          console.log(products);
+          o = new Order({ total: total.toFixed(2)});
+          for(j;j < current_user.products.length;j++) {
+            o.products.push(current_user.products[j]) }
+            console.log(o);
+            o.save(function(err){ 
+              if(err) console.log(err);
+              console.log('sucessfully saved');
+            });
         console.log('success');
+        User.findById(current_user.id, function (err, user){
+          user.products.splice(0, user.products.length);
+         user.save();
+        });
+       
         res.redirect('/orders/confirmation');
         }
       });
-
 }); 
 });
-      // saveStripeCustomerId(user, charge.customer);});
-    // var customerId = getStripeCustomerId(user);
-
-    // stripe.charges.create({
-    //   amount: 1500, // amount in cents, again
-    //   currency: "gbp",
-    //   customer: customerId
-    // },function(err, charge) {
-    //     console.log(charge)
-    //     if (err && err.type === 'StripeCardError') {
-    //       // The card has been declined
-    //       console.log('card declined')
-    //     }
-    //     });
-
-
-router.get('/confirmation', function (req, res) {
-  Product.remove({}, function (err) {
-    if(err) console.log(err);
-    console.log('cleared cart');
-  });
-  Product.find(function (err, products) {
-    res.render('./orders/confirmation', { products: products});
-  })
-
+ 
+// GET CONFIRMATION
+router.get('/confirmation', authenticatedUser, function (req, res) {
+  current_user.products = [];
+  current_user.save(function(){})
+    res.render('./orders/confirmation');
 })
 
 module.exports = router;

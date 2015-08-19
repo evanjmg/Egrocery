@@ -1,30 +1,33 @@
 <div class="row">
 <div class="small-12 medium-9 large-7 columns">
 <div class="row">
-<div class="small-4  columns">
+<div class="small-6  columns">
 <h2 class="cart-head" style="text-align:left;">My Cart</h2>
 </div>
-<div class="small-4 columns text-center total"> Total: £<% var i=0,total=0;
+<div class="small-6 columns text-center total"> Total: £<% var i=0,total=0;
 for(i;i < products.length;i++) {
 total += parseFloat(products[i].price);
-}%> <%= total.toFixed(2) %></div>
-<div class="small-4 columns text-center"> <a href="/orders/payment"><button class="button alert checkout">Checkout</button></a></div>
+  }%> <span id="total-value"><%= total.toFixed(2) %></span></div>
+
 </div>
 </div>
-<div class="small-0 medium-3 large-5 columns"></div>
 </div>
-<ul><a href="/products/new" style="display:block" class="green-button">Add a New Product</a>
+<ul> <div class="row">
+<div class="small-4 columns"> <a href="/orders/payment"><button class="button alert">Checkout</button></a></div><div class="small-4 columns"><a href="/products/new" style="display:block" class="button green-button"><strong> + Product</strong></a></div><div class="small-4 columns">
+<a href="/products/deleteallfromcart" id="deletecart" class="button"><strong>Clear Cart</strong></a></div></div>
 <% var i = 0; for(i; i < products.length;i++) { %>
 <li class="products">
   <h4><%= products[i].name %></h4>
   <h5>£<%= (parseFloat(products[i].price)).toFixed(2) %></h5>
-  <img src="<%= products[i].image %>" alt="">
-  <h5><%= products[i].description %></h5>
-<!--   <a href="/products/<%= products[i].id %>/edit" class="button">Edit</a> -->
-  <form action="/products/<%= products[i].id %>" method="post">
-  <input type="hidden" name="_method" value="delete">
-  <input type="submit" value="Remove" class="button remove">
-  </form>
+  <a href="/products/<%= products[i].id %>">
+  <img src="<%= products[i].image %>" alt=""></a>
+
+<form action="/products/addtocart" method="post" class="form-cart in-cart">
+  <input type="hidden" class="name" name="name" value="<%= products[i].name %>">
+  <input type="hidden" class="price" name="price" value="<%= products[i].price %>">
+  <input type="hidden" class="image" name="image" value="<%= products[i].image %>">
+  <input  type="submit" value="Remove" class="button animated pulse addtocart">
+</form>
 </li>
 <% } %>
 </ul>

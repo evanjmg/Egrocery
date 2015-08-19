@@ -117,7 +117,10 @@ h2 {
   form:hover {background: white !important;}
   div:hover {background: white !important;}
 }
-
+.btn-google {
+  width:200px;
+  background-color: #DD4B39;
+}
 .top-bar-section ul li {
   background: white;
   a {
@@ -150,13 +153,8 @@ line-height: 60px;}
 }
 a.green-button {
   background: #6d7;
-  padding:2px;
-  color:white;
-  max-width:160px;
-  border-radius:3px;
-  text-align: center;
+  max-width:180px;
 
-  
 }
 a.green-button:hover {
     background-color: #f86;
@@ -193,10 +191,18 @@ background: #f86;
   }
 }
 @media only screen and (max-width: 40.0625em) {
+  .green-button {
+    margin-top: 5px;
+  }
 .checkout-total {
   font-size:20px;  
 }
+.button {
+ font-size:10px;
+ }
+
   .total { font-size: 14px;}
+
 
 h2{
  font-size: 18px !important;

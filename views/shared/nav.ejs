@@ -5,13 +5,15 @@
     <h1><a href="/products"><img src="/images/egrocery-logo.jpg" width="40" style="margin-right:5px;" alt=""><span style="color:#4ae">e</span>Grocery</a></h1>
     </li>
      <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
-    <li class="toggle-topbar"><a href="#"><span> <% if (products != undefined) { %><span class="cart-total "><%= products.length %></span> <% } %>MENU</span></a></li>
+    <li class="toggle-topbar"><a href="#"><% if (current_user) { %><span> <% if (current_user.products != undefined || "") { %><span class="cart-total "><%= current_user.products.length %></span> <% } %><% } %>MENU</span></a></li>
   </ul>
 
   <section class="top-bar-section">
     <!-- Right Nav Section -->
     <ul class="right">
-    <li><a href="/products"> My Cart <% if (products != undefined) { %><span class="cart-total "><%= products.length %></span> <% } %></a></li>
+    <% if (current_user) { %>
+    <li><a href="/products"> My Cart  <% if (current_user.products != undefined || "") { %><span class="cart-total"><%= current_user.products.length %></span> <% } %></a></li><% } %>
+
       <li class="has-form">
         <div class="row collapse"><form action="/search/" method="post">
           <div class="large-8 small-7 columns">
@@ -23,14 +25,20 @@
           </div>
           </form>
         </div>
-      </li>
+      </li>  <% if (current_user) { %>
       <li class="has-dropdown">
+
         <a href="#">My Account</a>
         <ul class="dropdown">
-          <li class="active"><a href="#" >Logout</a></li>
+          <li class="active"><a href="/users/logout" >Logout</a></li>
           <li class="active"><a href="/orders">My Orders</a></li>
         </ul>
       </li>
+      <% } else { %>
+      <li>
+        <a href="/users/login">Login</a>
+      </li>
+      <% } %>
     </ul>
     <!-- Left Nav Section -->
     <ul class="left">
