@@ -1,29 +1,33 @@
 <div class="results-container text-centered">
-<h4 class="message">
-<% if (message) {  %>
-<%= message %>
-<% } %>
-<% if (!current_user) { %>
-Please Sign in to buy groceries
-<% } %>
-</h4>
+  <h4 class="message">
+    <% if (message) {  %>
+    <%= message %>
+    <% } %>
+    <% if (!current_user) { %>
+    Please Sign in to buy groceries
+    <% } %>
+  </h4>
 
-<% var i=0; for(i;i< tescoproducts.length;i++) { %>
-<li class="products">
-  <h4><%= tescoproducts[i].Name %></h4>
-  <img src="<%= tescoproducts[i].ImagePath %>" alt="">
-  <p>
-    <%= tescoproducts[i].PriceDescription %>
-    <br/>
-  </p>
-  <% if (current_user) { %>
-  <form action="/products/addtocart" method="post" class="form-cart">
-    <input type="hidden" class="name" name="name" value="<%= tescoproducts[i].Name %>">
-    <input type="hidden" class="price" name="price" value="<%= tescoproducts[i].Price %>">
-    <input type="hidden" class="image" name="image" value="<%= tescoproducts[i].ImagePath %>">
-    <input  type="submit" value="Add To Cart" class="button animated pulse addtocart">
-  </form>
+  <% var i=0; for(i;i< tescoproducts.length;i++) { %>
+  <li class="products">
+    <h4><%= tescoproducts[i].Name %></h4>
+    <img src="<%= tescoproducts[i].ImagePath %>" alt="">
+    <p>
+      <%= tescoproducts[i].PriceDescription %>
+      <br/>
+    </p>
+    <% if (current_user) { %>
+
+    <!-- CREATE PRODUCT FORM (AKA ADD TO CART) -->
+    <!-- action and method are not needed, especially for a pure ajax app- the form is used to take the data outputed from the tesco api and creating product objects from this data - see search controller and tesco function for more info -->
+    <form action="/products/addtocart" method="post" class="form-cart">
+      <input type="hidden" class="name" name="name" value="<%= tescoproducts[i].Name %>">
+      <input type="hidden" class="price" name="price" value="<%= tescoproducts[i].Price %>">
+      <input type="hidden" class="image" name="image" value="<%= tescoproducts[i].ImagePath %>">
+      <!-- note that the submit button is the only thing visible and everything else is hidden -->
+      <input  type="submit" value="Add To Cart" class="button animated pulse addtocart">
+    </form>
+    <% } %>
+  </li>
   <% } %>
-</li>
-<% } %>
 </div>
