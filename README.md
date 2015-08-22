@@ -2,7 +2,7 @@
 An e-commerce app where you can buy groceries.
 
 Use: https://egrocery.herokuapp.com
-![egrocery](https://egrocery.herokuapp.com/images/egrocery-cover-image.png)
+![egrocery](http://egrocery.herokuapp.com/images/egrocery-cover-image.png)
 Powered by Stripe and Tesco
 
 ##Build: 
