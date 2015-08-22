@@ -9,4 +9,4 @@ Powered by Stripe and Tesco
 - Back-end: Node.js, MongoDB, Mongoose
 - Front-end: Foundation, jQuery, Animate.css, AJAX
 - APIs: Tesco, Stripe, Google Oauth
--Languages: Javascript, HTML, CSS
+- Languages: Javascript, HTML, CSS
