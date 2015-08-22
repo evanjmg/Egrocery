@@ -1,4 +1,4 @@
-FILES THAT CONNECTED OR HAVE AJAX: 
+FILES THAT CONNECT TO OR HAVE AJAX: 
 
 PUBLIC -> JS: ajax.js
 This is where I wrote all my ajax. I included the script in the top layouts.ejs file
