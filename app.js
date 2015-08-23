@@ -17,6 +17,13 @@ var express = require('express'),
     User = require('./models/user'),
     MongoStore = require('connect-mongo')(session);
 
+    app.use(layouts);
+
+    app.set('views', './views');
+    app.engine('ejs', require('ejs').renderFile);
+    app.set('view engine', 'ejs');
+    app.use(express.static(__dirname + '/public'));
+    
  var databaseURL = process.env.MONGOLAB_URI ||'mongodb://localhost/e-commerce';
      mongoose.connect(databaseURL);
 
@@ -51,12 +58,7 @@ var Results = {
 };
 
 
-app.use(layouts);
 
-app.set('views', './views');
-app.engine('ejs', require('ejs').renderFile);
-app.set('view engine', 'ejs');
-app.use(express.static(__dirname + '/public'));
 
 require('./config/passport')(passport);
 

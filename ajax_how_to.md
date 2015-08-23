@@ -1,4 +1,6 @@
-FILES THAT CONNECTED OR HAVE AJAX: 
+
+
+FILES THAT CONNECTED TO OR HAVE AJAX: 
 
 PUBLIC -> JS: ajax.js
 This is where I wrote all my ajax. I included the script in the top layouts.ejs file
@@ -14,6 +16,7 @@ router.delete('/deleteallfromcart', authenticatedUser...
 3 //  REMOVE FROM CART - AJAX
 router.delete('/removefromcart', authenticatedUser, function (...
 
-Look at ajax.js for more.  
+
+Look at ajax.js and controllers for detailed notes and explanations. 
 
 
