@@ -7,7 +7,7 @@
     Please Sign in to buy groceries
     <% } %>
   </h4>
-
+  <% if (tescoproducts !== undefined) { %>
   <% var i=0; for(i;i< tescoproducts.length;i++) { %>
   <li class="products">
     <h4><%= tescoproducts[i].Name %></h4>
@@ -29,5 +29,8 @@
     </form>
     <% } %>
   </li>
+  <% } %>
+  <% }  else { %>
+      No products found or Tesco's API is not operating.
   <% } %>
 </div>

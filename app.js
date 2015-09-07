@@ -1,31 +1,24 @@
 var express = require('express'),
-    app = express(),
-    bodyParser = require('body-parser'), 
-    mongoose = require('mongoose'),
-    layouts = require('express-ejs-layouts'),
-    morgan = require('morgan'),
-    passport = require('passport'),
-    sassMiddleware = require('node-sass-middleware'),
-    path = require('path'),
-    connect = require('connect'), request = require('request'),
-    GoogleStrategy = require('passport-google-oauth').OAuthStrategy,
-    cookieParser = require('cookie-parser'),
-    session      = require('express-session'),
-    flash        = require('connect-flash'),
-    Product = require('./models/product'),
-    Order = require('./models/order'),
-    User = require('./models/user'),
-    MongoStore = require('connect-mongo')(session);
+app = express(),
+bodyParser = require('body-parser'), 
+mongoose = require('mongoose'),
+layouts = require('express-ejs-layouts'),
+morgan = require('morgan'),
+passport = require('passport'),
+sassMiddleware = require('node-sass-middleware'),
+path = require('path'),
+connect = require('connect'), request = require('request'),
+GoogleStrategy = require('passport-google-oauth').OAuthStrategy,
+cookieParser = require('cookie-parser'),
+session      = require('express-session'),
+flash        = require('connect-flash'),
+Product = require('./models/product'),
+Order = require('./models/order'),
+User = require('./models/user'),
+MongoStore = require('connect-mongo')(session);
 
-    app.use(layouts);
-
-    app.set('views', './views');
-    app.engine('ejs', require('ejs').renderFile);
-    app.set('view engine', 'ejs');
-    app.use(express.static(__dirname + '/public'));
-    
- var databaseURL = process.env.MONGOLAB_URI ||'mongodb://localhost/e-commerce';
-     mongoose.connect(databaseURL);
+var databaseURL = process.env.MONGOLAB_URI ||'mongodb://localhost/e-commerce';
+mongoose.connect(databaseURL);
 
 app.use(cookieParser());
 app.use(bodyParser.json());
@@ -58,14 +51,19 @@ var Results = {
 };
 
 
+app.use(layouts);
 
+app.set('views', './views');
+app.engine('ejs', require('ejs').renderFile);
+app.set('view engine', 'ejs');
+app.use(express.static(__dirname + '/public'));
 
 require('./config/passport')(passport);
 
 app.use(session({
-    secret:'secret',
-    maxAge: new Date(Date.now() + 3600000),
-    store: new MongoStore({mongooseConnection:mongoose.connection})
+  secret:'secret',
+  maxAge: new Date(Date.now() + 3600000),
+  store: new MongoStore({mongooseConnection:mongoose.connection})
 })) 
 
 app.use(passport.initialize());
@@ -80,10 +78,10 @@ app.use(function(req,res, next) {
 });
 
 app.use(function(req,res,next) {
-    Product.find(function (err, products){
-        global.products = products
-        next();
-    });
+  Product.find(function (err, products){
+    global.products = products
+    next();
+  });
 });
 // Custom flash middleware --  from Ethan Brown's book, 'Web Development with Node & Express'
 // app.use(function(req, res, next){
